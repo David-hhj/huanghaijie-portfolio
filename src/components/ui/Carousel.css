@@ -1,0 +1,226 @@
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+  border-radius: 0;
+  padding: 16px;
+  --outer-r: 0px;
+  --p-distance: 0px;
+  margin-inline: auto;
+}
+
+.carousel-track {
+  display: flex;
+}
+
+.carousel-item {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+  border-radius: 0;
+  background-color: var(--bg-elevated, #141416);
+  overflow: hidden;
+  cursor: grab;
+}
+
+.carousel-item:active {
+  cursor: grabbing;
+}
+
+.carousel-container.round {
+  border-radius: 50%;
+}
+
+.carousel-item.round {
+  background-color: var(--bg-elevated, #141416);
+  position: relative;
+  bottom: 0.1em;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.carousel-item-header.round {
+  padding: 0;
+  margin: 0;
+}
+
+.carousel-indicators-container.round {
+  position: absolute;
+  z-index: 2;
+  bottom: 3em;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.carousel-item-header {
+  margin-bottom: 0;
+  padding: 24px 24px 0;
+}
+
+.carousel-icon-container {
+  display: flex;
+  height: 28px;
+  width: 28px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #fff;
+}
+
+.carousel-icon {
+  height: 16px;
+  width: 16px;
+  color: #120f17;
+}
+
+.carousel-item-content {
+  padding: 16px 24px 24px;
+}
+
+.carousel-item-title {
+  margin-bottom: 4px;
+  font-weight: 900;
+  font-size: 18px;
+  color: #fff;
+}
+
+.carousel-item-description {
+  font-size: 14px;
+  color: #fff;
+}
+
+.carousel-item-custom {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  padding: 24px;
+}
+
+.carousel-container.embedded {
+  border: none;
+  padding: 0 0 8px;
+  background: transparent;
+  box-shadow: none;
+}
+
+.carousel-container.embedded .carousel-item {
+  border: none;
+  background: transparent;
+}
+
+.carousel-container.embedded .carousel-item-custom {
+  padding: 1.25rem 1.25rem 0.5rem;
+}
+
+.carousel-edge-nav {
+  position: absolute;
+  top: 0;
+  bottom: 2rem;
+  z-index: 2;
+  width: 30%;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+
+.carousel-edge-nav--left {
+  left: 0;
+}
+
+.carousel-edge-nav--right {
+  right: 0;
+}
+
+.carousel-edge-nav:hover {
+  background: rgba(255, 59, 0, 0.05);
+}
+
+.carousel-indicators-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.carousel-indicators {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  padding: 0 1.25rem 0.75rem;
+}
+
+.carousel-indicator {
+  height: 6px;
+  width: 6px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition:
+    background-color 150ms,
+    transform 150ms;
+}
+
+.carousel-indicator.active {
+  background-color: var(--accent, #ff3b00);
+  transform: scale(1.25);
+}
+
+.carousel-indicator.inactive {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel-item {
+    cursor: default;
+  }
+}
+
+.strengths-carousel-grid {
+  --strength-scale: 1.3;
+  max-width: calc(64rem * var(--strength-scale));
+  gap: calc(1.75rem * var(--strength-scale));
+}
+
+.strengths-card {
+  --strength-scale: 1.3;
+  max-width: calc(320px * var(--strength-scale));
+  font-size: calc(1rem * var(--strength-scale));
+}
+
+.strengths-card-category {
+  padding: 0.875em 1.25em;
+}
+
+.strengths-card .cap-title {
+  font-size: 0.875em;
+  line-height: 1.35;
+}
+
+.strengths-card .cap-desc {
+  font-size: 0.875em;
+  line-height: 1.65;
+}
+
+.strengths-card .cap-tools,
+.strengths-card .cap-output {
+  font-size: 0.65em;
+}
+
+.strengths-card .cap-gap {
+  margin-top: 0.625em;
+}
+
+.carousel-container.embedded.strengths-embedded .carousel-item-custom {
+  padding: 1.625rem 1.625rem 0.625rem;
+}
+
+.carousel-container.embedded.strengths-embedded .carousel-indicators {
+  margin-top: calc(10px * 1.3);
+  padding: 0 1.625rem 0.975rem;
+}
