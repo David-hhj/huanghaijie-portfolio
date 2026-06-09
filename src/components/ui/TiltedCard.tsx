@@ -1,5 +1,6 @@
 import { useRef, useState, type ReactNode, type MouseEvent } from "react";
 import { motion, useMotionValue, useSpring } from "motion/react";
+import { assetUrl } from "../../lib/assetUrl";
 import "./TiltedCard.css";
 
 const springValues = {
@@ -123,7 +124,7 @@ export function TiltedCard({
         }}
       >
         <motion.img
-          src={imageSrc}
+          src={assetUrl(imageSrc)}
           alt={altText}
           draggable={false}
           className="tilted-card-img border border-[var(--border)]"

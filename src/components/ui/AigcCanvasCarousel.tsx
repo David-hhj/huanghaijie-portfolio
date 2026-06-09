@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, ImageIcon } from "lucide-react";
 import type { AigcShowcaseItem } from "../../data/types";
+import { assetUrl } from "../../lib/assetUrl";
 import { BorderGlow, sectionCardGlowProps } from "./BorderGlow";
 import { ZoomableImage } from "./ZoomableImage";
 
@@ -17,6 +18,8 @@ type LazyOutputVideoProps = {
 
 function LazyOutputVideo({ src, poster, caption, active }: LazyOutputVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const resolvedSrc = assetUrl(src);
+  const resolvedPoster = assetUrl(poster);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -29,12 +32,12 @@ function LazyOutputVideo({ src, poster, caption, active }: LazyOutputVideoProps)
       return;
     }
 
-    if (video.dataset.src !== src) {
-      video.src = src;
-      video.dataset.src = src;
+    if (video.dataset.src !== resolvedSrc) {
+      video.src = resolvedSrc;
+      video.dataset.src = resolvedSrc;
       video.load();
     }
-  }, [active, src]);
+  }, [active, resolvedSrc]);
 
   return (
     <div className="aspect-video w-full overflow-hidden bg-black">
@@ -43,7 +46,7 @@ function LazyOutputVideo({ src, poster, caption, active }: LazyOutputVideoProps)
         controls
         playsInline
         preload="none"
-        poster={poster}
+        poster={resolvedPoster}
         className="h-full w-full object-contain"
         aria-label={caption}
       />

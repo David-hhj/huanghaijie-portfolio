@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { assetUrl } from "../../lib/assetUrl";
 
 export function HeroBackground() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -22,7 +23,7 @@ export function HeroBackground() {
     const video = videoRef.current;
     if (!video || !shouldLoad) return;
 
-    video.src = "/videos/hero-bg.mp4";
+    video.src = assetUrl("/videos/hero-bg.mp4");
     video.load();
     void video.play().catch(() => undefined);
   }, [shouldLoad]);
@@ -38,7 +39,7 @@ export function HeroBackground() {
           muted
           playsInline
           preload="none"
-          poster="/images/hero-poster.jpg"
+          poster={assetUrl("/images/hero-poster.jpg")}
         />
       </div>
 

@@ -1,6 +1,7 @@
 import { ExternalLink } from "lucide-react";
 import { profile } from "../../data/profile";
 import { useContactMotion } from "../../hooks/useScrollReveal";
+import { assetUrl } from "../../lib/assetUrl";
 import { Container } from "../layout/Container";
 
 export function Contact() {
@@ -41,7 +42,7 @@ export function Contact() {
               {links.wechat ? <li>WeChat {links.wechat}</li> : null}
               {links.resume ? (
                 <li>
-                  <a href={links.resume} className="hover:underline">
+                  <a href={assetUrl(links.resume)} className="hover:underline">
                     Download Resume
                   </a>
                 </li>

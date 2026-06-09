@@ -1,4 +1,5 @@
 import { useState, type CSSProperties } from "react";
+import { assetUrl } from "../../lib/assetUrl";
 import { ImageLightbox } from "./ImageLightbox";
 
 type ZoomableImageProps = {
@@ -23,10 +24,11 @@ export function ZoomableImage({
   motion = false,
 }: ZoomableImageProps) {
   const [open, setOpen] = useState(false);
+  const resolvedSrc = assetUrl(src);
 
   const image = (
     <img
-      src={src}
+      src={resolvedSrc}
       alt={alt}
       className={`${imgClassName}${motion ? " motion-image" : ""}`}
       style={style}
@@ -51,7 +53,7 @@ export function ZoomableImage({
         ) : null}
       </button>
 
-      <ImageLightbox src={src} alt={alt} open={open} onClose={() => setOpen(false)} />
+      <ImageLightbox src={resolvedSrc} alt={alt} open={open} onClose={() => setOpen(false)} />
     </>
   );
 }
