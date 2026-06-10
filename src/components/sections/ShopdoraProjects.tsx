@@ -112,13 +112,14 @@ export function ShopdoraProjects() {
               </div>
             </div>
 
-            <div className="motion-image-wrap relative min-h-[320px] overflow-hidden bg-black/30">
+            <div className="motion-image-wrap relative min-h-[360px] overflow-hidden bg-black/30">
               <ZoomableImage
                 src={bitunix.image}
                 alt={bitunix.imageAlt}
                 motion
-                className="block h-full min-h-[320px] w-full"
-                imgClassName="h-full min-h-[320px] w-full object-cover object-top"
+                className="block h-full min-h-[360px] w-full"
+                imgClassName="h-full min-h-[360px] w-full object-cover"
+                style={{ objectPosition: "left top" }}
               />
             </div>
           </div>
