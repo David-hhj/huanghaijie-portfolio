@@ -65,6 +65,28 @@ export function ShopdoraProjects() {
           </article>
         </BorderGlow>
 
+        <div className="mt-12">
+          <div className="reveal-item mb-8 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="eyebrow text-[var(--text-muted)]">{automation.subtitle}</p>
+              <h3 className="display-title-cn mt-2 text-xl text-[var(--text-primary)]">
+                {automation.title}
+              </h3>
+            </div>
+            <p className="max-w-lg text-sm text-white">
+              服务于 {shopdoraCase.site} · {automation.description}
+            </p>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2">
+            {n8nWorkflows.map((workflow) => (
+              <div key={workflow.id} className="reveal-item">
+                <WorkflowCard workflow={workflow} />
+              </div>
+            ))}
+          </div>
+        </div>
+
         <BorderGlow className="reveal-item mt-12" innerClassName="overflow-hidden" {...sectionCardGlowProps}>
           <article>
             <div className="motion-image-wrap overflow-hidden border-b border-[var(--border)] bg-black/40 px-6 py-6 md:px-10 md:py-8">
@@ -122,28 +144,6 @@ export function ShopdoraProjects() {
             </div>
           </article>
         </BorderGlow>
-
-        <div className="mt-16">
-          <div className="reveal-item mb-8 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
-            <div>
-              <p className="eyebrow text-[var(--text-muted)]">{automation.subtitle}</p>
-              <h3 className="display-title-cn mt-2 text-xl text-[var(--text-primary)]">
-                {automation.title}
-              </h3>
-            </div>
-            <p className="max-w-lg text-sm text-white">
-              服务于 {shopdoraCase.site} · {automation.description}
-            </p>
-          </div>
-
-          <div className="grid gap-4 md:grid-cols-2">
-            {n8nWorkflows.map((workflow) => (
-              <div key={workflow.id} className="reveal-item">
-                <WorkflowCard workflow={workflow} />
-              </div>
-            ))}
-          </div>
-        </div>
       </Container>
     </section>
   );
