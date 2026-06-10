@@ -94,8 +94,8 @@ export function ShopdoraProjects() {
                 src={bitunix.image}
                 alt={bitunix.imageAlt}
                 motion
-                className="mx-auto block w-full max-w-[49rem]"
-                imgClassName="mx-auto block max-h-[min(420px,45.5vh)] w-full object-contain"
+                className="mx-auto block w-full max-w-[53.9rem]"
+                imgClassName="mx-auto block max-h-[min(462px,50.05vh)] w-full object-contain"
               />
             </div>
             <div className="flex flex-col justify-center p-8 md:p-10">
