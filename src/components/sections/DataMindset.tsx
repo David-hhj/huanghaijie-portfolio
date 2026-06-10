@@ -83,7 +83,7 @@ export function DataMindset() {
               [SEO DATA] · Shopdora 成果
             </p>
             <ZoomableImage
-              src="/images/seo/seo-results.png"
+              src="/images/seo/seo-results.webp"
               alt="Shopdora SEO 成果数据"
               motion
               imgClassName="w-full object-cover"

@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { assetUrl } from "../../lib/assetUrl";
 
+/** Delay before loading/decoding the hero background video (poster shows first). */
+const HERO_VIDEO_DELAY_MS = 2200;
+
 export function HeroBackground() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [shouldLoad, setShouldLoad] = useState(false);
@@ -9,14 +12,8 @@ export function HeroBackground() {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced) return;
 
-    const enable = () => setShouldLoad(true);
-    const idleId = window.requestIdleCallback?.(enable, { timeout: 600 });
-    const timeoutId = idleId === undefined ? window.setTimeout(enable, 120) : undefined;
-
-    return () => {
-      if (idleId !== undefined) window.cancelIdleCallback(idleId);
-      if (timeoutId !== undefined) window.clearTimeout(timeoutId);
-    };
+    const timeoutId = window.setTimeout(() => setShouldLoad(true), HERO_VIDEO_DELAY_MS);
+    return () => window.clearTimeout(timeoutId);
   }, []);
 
   useEffect(() => {

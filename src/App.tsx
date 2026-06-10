@@ -1,4 +1,5 @@
 import { lazy, Suspense } from "react";
+import { useImagePrefetch } from "./hooks/useImagePrefetch";
 import { useActiveSection } from "./hooks/useScrollReveal";
 import { ChapterNav } from "./components/layout/ChapterNav";
 import { Nav } from "./components/layout/Nav";
@@ -37,6 +38,7 @@ const sectionIds = [
 
 function AppContent() {
   useActiveSection(sectionIds);
+  useImagePrefetch();
 
   return (
     <>

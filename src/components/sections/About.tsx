@@ -38,7 +38,7 @@ export function About() {
         <div className="reveal-item grid gap-12 lg:grid-cols-[280px_1fr]">
           <div className="flex flex-col items-center lg:items-start">
             <TiltedCard
-              imageSrc="/images/about/avatar.png"
+              imageSrc="/images/about/avatar.webp"
               altText={`${profile.name} 头像`}
               containerHeight="224px"
               containerWidth="224px"

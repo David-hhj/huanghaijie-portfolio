@@ -8,7 +8,7 @@ export const shopdoraCase = {
     summary:
       "为 Shopee 选品数据工具 Shopdora 实现海内外自然搜索流量持续增长，支撑海外营收提升。",
     role: "关键词策略、技术 SEO 方案、内容矩阵规划、数据监控与复盘",
-    image: "/images/seo/seo-results.png",
+    image: "/images/seo/seo-results.webp",
     imageAlt: "Shopdora SEO 成果数据截图",
     metrics: [
       { value: "+500%", label: "自然流量 · 6 个月" },
@@ -39,7 +39,7 @@ export const n8nWorkflows: N8nWorkflow[] = [
     input: "关键词勾选与选题输入",
     output: "Ghost 博客图文文章自动发布",
     platform: "Ghost",
-    image: "/images/projects/n8n/keyword-blog-ghost.png",
+    image: "/images/projects/n8n/keyword-blog-ghost.webp",
     imageAlt: "n8n 工作流：关键词勾选自动生成 Ghost 博客图文",
   },
   {
@@ -48,7 +48,7 @@ export const n8nWorkflows: N8nWorkflow[] = [
     input: "定时爬取跨境信息源",
     output: "多语言日报博客发布至 Ghost",
     platform: "Ghost",
-    image: "/images/projects/n8n/cross-border-daily-ghost.png",
+    image: "/images/projects/n8n/cross-border-daily-ghost.webp",
     imageAlt: "n8n 工作流：定时爬取跨境信息源生成多语言日报",
   },
   {
@@ -57,7 +57,7 @@ export const n8nWorkflows: N8nWorkflow[] = [
     input: "自动检测上传文件并提取内容",
     output: "多语言周报博客发布至 Ghost",
     platform: "Ghost",
-    image: "/images/projects/n8n/file-extract-weekly-ghost.png",
+    image: "/images/projects/n8n/file-extract-weekly-ghost.webp",
     imageAlt: "n8n 工作流：文件检测提取内容生成多语言周报",
   },
   {
@@ -66,7 +66,7 @@ export const n8nWorkflows: N8nWorkflow[] = [
     input: "已上传的博客文章",
     output: "翻译后发布至 WordPress 新语言板块",
     platform: "WordPress",
-    image: "/images/projects/n8n/translate-wordpress.png",
+    image: "/images/projects/n8n/translate-wordpress.webp",
     imageAlt: "n8n 工作流：自动翻译博客并发布到 WordPress",
   },
 ];
