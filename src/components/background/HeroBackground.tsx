@@ -1,42 +1,84 @@
 import { useEffect, useRef, useState } from "react";
 import { assetUrl } from "../../lib/assetUrl";
 
-/** Delay before loading/decoding the hero background video (poster shows first). */
-const HERO_VIDEO_DELAY_MS = 2200;
+/** Wait before starting playback (poster holds the frame until then). */
+const HERO_VIDEO_PLAY_DELAY_MS = 2200;
+/** Begin buffering early so playback can start without a black gap. */
+const HERO_VIDEO_LOAD_DELAY_MS = 400;
+const CROSSFADE_MS = 700;
 
 export function HeroBackground() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [shouldLoad, setShouldLoad] = useState(false);
+  const [videoVisible, setVideoVisible] = useState(false);
+  const posterUrl = assetUrl("/images/hero-poster.jpg");
+  const videoUrl = assetUrl("/videos/hero-bg.mp4");
 
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced) return;
 
-    const timeoutId = window.setTimeout(() => setShouldLoad(true), HERO_VIDEO_DELAY_MS);
-    return () => window.clearTimeout(timeoutId);
-  }, []);
-
-  useEffect(() => {
     const video = videoRef.current;
-    if (!video || !shouldLoad) return;
+    if (!video) return;
 
-    video.src = assetUrl("/videos/hero-bg.mp4");
-    video.load();
-    void video.play().catch(() => undefined);
-  }, [shouldLoad]);
+    let cancelled = false;
+    let delayDone = false;
+    let canPlay = false;
+    let started = false;
+
+    const startPlayback = () => {
+      if (cancelled || started || !delayDone || !canPlay) return;
+      started = true;
+
+      void video.play().then(() => {
+        if (!cancelled) setVideoVisible(true);
+      }).catch(() => undefined);
+    };
+
+    const onCanPlay = () => {
+      canPlay = true;
+      startPlayback();
+    };
+
+    video.addEventListener("canplaythrough", onCanPlay);
+
+    const loadTimer = window.setTimeout(() => {
+      if (cancelled) return;
+      video.src = videoUrl;
+      video.load();
+    }, HERO_VIDEO_LOAD_DELAY_MS);
+
+    const playTimer = window.setTimeout(() => {
+      if (cancelled) return;
+      delayDone = true;
+      startPlayback();
+    }, HERO_VIDEO_PLAY_DELAY_MS);
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(loadTimer);
+      window.clearTimeout(playTimer);
+      video.removeEventListener("canplaythrough", onCanPlay);
+    };
+  }, [videoUrl]);
 
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
       <div className="hero-video-wrap absolute inset-0 h-full w-full">
+        <img
+          src={posterUrl}
+          alt=""
+          className={`hero-media hero-poster absolute inset-0 h-full w-full object-cover${videoVisible ? " hero-poster--hidden" : ""}`}
+          decoding="async"
+          fetchPriority="high"
+        />
         <video
           ref={videoRef}
-          className="hero-video absolute inset-0 h-full w-full object-cover"
+          className={`hero-media hero-video absolute inset-0 h-full w-full object-cover${videoVisible ? " hero-video--visible" : ""}`}
           autoPlay
           loop
           muted
           playsInline
           preload="none"
-          poster={assetUrl("/images/hero-poster.jpg")}
         />
       </div>
 
@@ -74,10 +116,31 @@ export function HeroBackground() {
       />
 
       <style>{`
-        .hero-video {
+        .hero-media {
           filter: brightness(0.605) contrast(1.05) saturate(0.85);
           transform: translateZ(0);
           backface-visibility: hidden;
+        }
+
+        .hero-poster {
+          opacity: 1;
+          transition: opacity ${CROSSFADE_MS}ms ease;
+          z-index: 1;
+        }
+
+        .hero-poster--hidden {
+          opacity: 0;
+          pointer-events: none;
+        }
+
+        .hero-video {
+          opacity: 0;
+          transition: opacity ${CROSSFADE_MS}ms ease;
+          z-index: 0;
+        }
+
+        .hero-video--visible {
+          opacity: 1;
         }
 
         .hero-noise {
