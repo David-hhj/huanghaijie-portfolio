@@ -1,5 +1,6 @@
-import { useEffect, useRef, type CSSProperties, type RefObject } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type RefObject } from "react";
 import * as THREE from "three";
+import { isWebGLAvailable } from "../../lib/webgl";
 import "./ColorBends.css";
 
 const MAX_COLORS = 8;
@@ -156,6 +157,7 @@ export function ColorBends({
   interactionRef,
 }: ColorBendsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [useFallback, setUseFallback] = useState(() => !isWebGLAvailable());
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const rafRef = useRef<number | null>(null);
   const isVisibleRef = useRef(true);
@@ -168,6 +170,8 @@ export function ColorBends({
   const pointerSmoothRef = useRef(8);
 
   useEffect(() => {
+    if (useFallback) return;
+
     const container = containerRef.current;
     if (!container) return;
 
@@ -205,11 +209,20 @@ export function ColorBends({
     const mesh = new THREE.Mesh(geometry, material);
     scene.add(mesh);
 
-    const renderer = new THREE.WebGLRenderer({
-      antialias: false,
-      powerPreference: "high-performance",
-      alpha: true,
-    });
+    let renderer: THREE.WebGLRenderer;
+    try {
+      renderer = new THREE.WebGLRenderer({
+        antialias: false,
+        powerPreference: "high-performance",
+        alpha: true,
+      });
+    } catch {
+      geometry.dispose();
+      material.dispose();
+      setUseFallback(true);
+      return;
+    }
+
     rendererRef.current = renderer;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
@@ -290,9 +303,12 @@ export function ColorBends({
     speed,
     transparent,
     warpStrength,
+    useFallback,
   ]);
 
   useEffect(() => {
+    if (useFallback) return;
+
     const material = materialRef.current;
     const renderer = rendererRef.current;
     if (!material) return;
@@ -334,9 +350,12 @@ export function ColorBends({
     bandWidth,
     colors,
     transparent,
+    useFallback,
   ]);
 
   useEffect(() => {
+    if (useFallback) return;
+
     const container = containerRef.current;
     if (!container) return;
 
@@ -360,7 +379,23 @@ export function ColorBends({
       target.removeEventListener("pointermove", handlePointerMove);
       target.removeEventListener("pointerleave", handlePointerLeave);
     };
-  }, [interactionRef]);
+  }, [interactionRef, useFallback]);
+
+  if (useFallback) {
+    const accent = colors[0] ?? "#900000";
+    return (
+      <div
+        className={`color-bends-fallback ${className}`.trim()}
+        style={
+          {
+            ...style,
+            "--fallback-accent": accent,
+          } as CSSProperties
+        }
+        aria-hidden
+      />
+    );
+  }
 
   return (
     <div

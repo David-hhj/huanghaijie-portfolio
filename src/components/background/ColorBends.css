@@ -4,3 +4,15 @@
   height: 100%;
   overflow: hidden;
 }
+
+/* Static fallback when WebGL is unavailable (e.g. Chrome GPU disabled). */
+.color-bends-fallback {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 80% 55% at 18% 42%, color-mix(in srgb, var(--fallback-accent, #900000) 72%, transparent) 0%, transparent 62%),
+    radial-gradient(ellipse 70% 50% at 82% 58%, color-mix(in srgb, var(--fallback-accent, #900000) 48%, transparent) 0%, transparent 58%),
+    radial-gradient(ellipse 90% 70% at 50% 50%, color-mix(in srgb, var(--fallback-accent, #900000) 28%, #0a0a0b) 0%, #0a0a0b 72%);
+}
