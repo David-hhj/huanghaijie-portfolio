@@ -96,7 +96,7 @@ export function useScrollReveal() {
             duration: MOTION_DURATION.title,
             ease: MOTION_EASE.luxury,
           },
-          eyebrow ? "-=0.82" : 0,
+          eyebrow ? "-=0.57" : 0,
         );
       }
 
@@ -108,10 +108,10 @@ export function useScrollReveal() {
             y: 0,
             opacity: 1,
             filter: "blur(0px)",
-            duration: 1.05,
+            duration: 0.735,
             ease: MOTION_EASE.out,
           },
-          "-=0.9",
+          "-=0.63",
         );
       }
 
@@ -125,10 +125,10 @@ export function useScrollReveal() {
             scale: 1,
             rotateX: 0,
             duration: MOTION_DURATION.card,
-            stagger: 0.18,
+            stagger: 0.126,
             ease: MOTION_EASE.out,
           },
-          "-=0.55",
+          "-=0.39",
         );
       }
 
@@ -217,7 +217,7 @@ export function useContactMotion() {
             scaleY: 1,
             scaleX: 1,
             clipPath: "inset(0% 0 0 0)",
-            duration: 1.6,
+            duration: 1.12,
             ease: MOTION_EASE.luxury,
           },
         );
@@ -227,8 +227,8 @@ export function useContactMotion() {
         tl.fromTo(
           tagline,
           { y: 48, opacity: 0, letterSpacing: "0.28em" },
-          { y: 0, opacity: 1, letterSpacing: "0.06em", duration: 1.1, ease: MOTION_EASE.out },
-          "-=0.85",
+          { y: 0, opacity: 1, letterSpacing: "0.06em", duration: 0.77, ease: MOTION_EASE.out },
+          "-=0.59",
         );
       }
 
@@ -236,8 +236,8 @@ export function useContactMotion() {
         tl.fromTo(
           cta,
           { y: 36, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.95, ease: MOTION_EASE.out },
-          "-=0.75",
+          { y: 0, opacity: 1, duration: 0.665, ease: MOTION_EASE.out },
+          "-=0.53",
         );
       }
 
@@ -245,8 +245,8 @@ export function useContactMotion() {
         tl.fromTo(
           blocks,
           { y: 72, opacity: 0 },
-          { y: 0, opacity: 1, duration: 1.05, stagger: 0.14, ease: MOTION_EASE.out },
-          "-=0.55",
+          { y: 0, opacity: 1, duration: 0.735, stagger: 0.098, ease: MOTION_EASE.out },
+          "-=0.39",
         );
       }
     }, el);

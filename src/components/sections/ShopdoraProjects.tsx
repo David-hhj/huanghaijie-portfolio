@@ -66,8 +66,17 @@ export function ShopdoraProjects() {
         </BorderGlow>
 
         <BorderGlow className="reveal-item mt-12" innerClassName="overflow-hidden" {...sectionCardGlowProps}>
-          <div className="grid lg:grid-cols-2">
-            <div className="border-b border-[var(--border)] p-8 md:p-10 lg:border-r lg:border-b-0">
+          <article>
+            <div className="motion-image-wrap overflow-hidden border-b border-[var(--border)] bg-black/40 px-6 py-6 md:px-10 md:py-8">
+              <ZoomableImage
+                src={bitunix.image}
+                alt={bitunix.imageAlt}
+                motion
+                className="mx-auto block w-full max-w-[49rem]"
+                imgClassName="mx-auto block max-h-[min(420px,45.5vh)] w-full object-contain"
+              />
+            </div>
+            <div className="flex flex-col justify-center p-8 md:p-10">
               <p className="eyebrow text-[var(--accent)]">{bitunix.eyebrow}</p>
               <h3 className="display-title-cn mt-4 text-2xl text-[var(--text-primary)]">{bitunix.title}</h3>
               <p className="mt-4 text-sm leading-relaxed text-white">{bitunix.summary}</p>
@@ -111,18 +120,7 @@ export function ShopdoraProjects() {
                 ))}
               </div>
             </div>
-
-            <div className="motion-image-wrap relative min-h-[360px] overflow-hidden bg-black/30">
-              <ZoomableImage
-                src={bitunix.image}
-                alt={bitunix.imageAlt}
-                motion
-                className="block h-full min-h-[360px] w-full"
-                imgClassName="h-full min-h-[360px] w-full object-cover"
-                style={{ objectPosition: "left top" }}
-              />
-            </div>
-          </div>
+          </article>
         </BorderGlow>
 
         <div className="mt-16">

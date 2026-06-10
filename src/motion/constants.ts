@@ -7,8 +7,8 @@ export const MOTION_EASE = {
 
 export const MOTION_DURATION = {
   hero: 1.75,
-  title: 1.45,
-  eyebrow: 1.35,
-  card: 1.15,
-  image: 1.5,
+  title: 1.015,
+  eyebrow: 0.945,
+  card: 0.805,
+  image: 1.05,
 } as const;
