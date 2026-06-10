@@ -1,14 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { assetUrl } from "../../lib/assetUrl";
 
-/** Wait before starting playback (poster holds the frame until then). */
-const HERO_VIDEO_PLAY_DELAY_MS = 2200;
-/** Begin buffering early so playback can start without a black gap. */
-const HERO_VIDEO_LOAD_DELAY_MS = 400;
-const CROSSFADE_MS = 700;
+const HERO_VIDEO_PLAY_DELAY_MS = 1000;
+const CROSSFADE_MS = 600;
 
 export function HeroBackground() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const playingRef = useRef(false);
   const [videoVisible, setVideoVisible] = useState(false);
   const posterUrl = assetUrl("/images/hero-poster.jpg");
   const videoUrl = assetUrl("/videos/hero-bg.mp4");
@@ -21,43 +19,51 @@ export function HeroBackground() {
     if (!video) return;
 
     let cancelled = false;
-    let delayDone = false;
-    let canPlay = false;
-    let started = false;
 
-    const startPlayback = () => {
-      if (cancelled || started || !delayDone || !canPlay) return;
-      started = true;
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    video.src = videoUrl;
+    video.load();
 
-      void video.play().then(() => {
-        if (!cancelled) setVideoVisible(true);
-      }).catch(() => undefined);
+    const reveal = () => {
+      if (cancelled || playingRef.current) return;
+      playingRef.current = true;
+      setVideoVisible(true);
     };
 
-    const onCanPlay = () => {
-      canPlay = true;
-      startPlayback();
+    const tryPlay = () => {
+      if (cancelled || playingRef.current) return;
+      video.muted = true;
+      void video.play().catch(() => undefined);
     };
 
-    video.addEventListener("canplaythrough", onCanPlay);
+    video.addEventListener("playing", reveal);
 
-    const loadTimer = window.setTimeout(() => {
-      if (cancelled) return;
-      video.src = videoUrl;
-      video.load();
-    }, HERO_VIDEO_LOAD_DELAY_MS);
+    const playTimer = window.setTimeout(tryPlay, HERO_VIDEO_PLAY_DELAY_MS);
 
-    const playTimer = window.setTimeout(() => {
-      if (cancelled) return;
-      delayDone = true;
-      startPlayback();
-    }, HERO_VIDEO_PLAY_DELAY_MS);
+    const retryPlay = () => {
+      if (!cancelled && !playingRef.current) tryPlay();
+    };
+
+    document.addEventListener("visibilitychange", retryPlay);
+    window.addEventListener("pageshow", retryPlay);
+    window.addEventListener("pointerdown", retryPlay, { passive: true });
+    window.addEventListener("scroll", retryPlay, { passive: true });
+
+    const retryInterval = window.setInterval(retryPlay, 800);
+    const stopRetry = window.setTimeout(() => window.clearInterval(retryInterval), 8000);
 
     return () => {
       cancelled = true;
-      window.clearTimeout(loadTimer);
       window.clearTimeout(playTimer);
-      video.removeEventListener("canplaythrough", onCanPlay);
+      window.clearTimeout(stopRetry);
+      window.clearInterval(retryInterval);
+      video.removeEventListener("playing", reveal);
+      document.removeEventListener("visibilitychange", retryPlay);
+      window.removeEventListener("pageshow", retryPlay);
+      window.removeEventListener("pointerdown", retryPlay);
+      window.removeEventListener("scroll", retryPlay);
     };
   }, [videoUrl]);
 
@@ -78,7 +84,7 @@ export function HeroBackground() {
           loop
           muted
           playsInline
-          preload="none"
+          preload="auto"
         />
       </div>
 
