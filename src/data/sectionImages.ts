@@ -1,6 +1,6 @@
 import { xiannvlongAI } from "./content";
 import { aigcShowcase } from "./aigcShowcase";
-import { shopdoraCase, n8nWorkflows } from "./shopdora";
+import { shopdoraCase, n8nWorkflows, bitunixCase } from "./shopdora";
 import { aiLabItems } from "./aiLab";
 
 function unique(paths: readonly (string | undefined)[]): string[] {
@@ -11,7 +11,11 @@ function unique(paths: readonly (string | undefined)[]): string[] {
 export const sectionImagePaths: Record<string, readonly string[]> = {
   hero: ["/images/hero-poster.jpg"],
   about: ["/images/about/avatar.webp"],
-  shopdora: unique([shopdoraCase.seo.image, ...n8nWorkflows.map((w) => w.image)]),
+  shopdora: unique([
+    shopdoraCase.seo.image,
+    bitunixCase.content.image,
+    ...n8nWorkflows.map((w) => w.image),
+  ]),
   content: unique([
     xiannvlongAI.image,
     ...aigcShowcase.flatMap((item) => [item.canvas, item.poster]),

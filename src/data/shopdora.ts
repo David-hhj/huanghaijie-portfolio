@@ -1,4 +1,4 @@
-import type { N8nWorkflow } from "./types";
+import type { ContentMatrixArticle, N8nWorkflow } from "./types";
 
 export const shopdoraCase = {
   client: "Shopdora",
@@ -30,6 +30,56 @@ export const shopdoraCase = {
       wordpress: "https://help.shopdora.com/en",
     },
   },
+};
+
+export const bitunixCase = {
+  client: "Bitunix",
+  site: "https://blog.bitunix.com/en",
+  content: {
+    eyebrow: "Outsourced Content · Beginner's Guide",
+    title: "Bitunix 博客外包内容",
+    summary:
+      "为 Bitunix 英文博客撰写「Buy [Asset] on Bitunix」购买指南系列，统一信息架构与 On-page SEO 模块，覆盖 Spot 交易长尾词与新手入门搜索意图。",
+    role: "英文长文撰写、选题矩阵规划、H2/H3 结构、FAQ · Glossary · CTA 模块",
+    image: "/images/seo/bitunix-blog-home.webp",
+    imageAlt: "Bitunix Blog 英文博客首页",
+    matrixLabel: "内容矩阵模板",
+    matrixPoints: [
+      "What is [Asset] → 资产定义与 2026 市场语境",
+      "Why buy on Bitunix → 平台路径与 BTC/USDT 等交易对",
+      "How to buy → 分步购买流程（Market / Limit Order）",
+      "FAQ + Glossary → 结构化摘要与术语模块",
+    ],
+    metrics: [
+      { value: "3 篇", label: "同一矩阵 · 已发布" },
+      { value: "Beginner's Guide", label: "内容品类" },
+      { value: "EN", label: "英文 · 购买指南" },
+    ],
+    links: [{ label: "Bitunix Blog", href: "https://blog.bitunix.com/en" }],
+  },
+  articles: [
+    {
+      id: "btc",
+      coin: "BTC",
+      title: "How to Buy Bitcoin (BTC) in 2026: The Ultimate Guide",
+      href: "https://blog.bitunix.com/en/buy-bitcoin-on-bitunix/",
+      category: "Beginner's Guide",
+    },
+    {
+      id: "bch",
+      coin: "BCH",
+      title: "Bitcoin Cash (BCH): How to Buy Bitcoin Cash in 2026",
+      href: "https://blog.bitunix.com/en/buy-bitcoin-cash-on-bitunix/",
+      category: "Beginner's Guide",
+    },
+    {
+      id: "btt",
+      coin: "BTT",
+      title: "BitTorrent Token (BTT): How to Buy and Where to Invest",
+      href: "https://blog.bitunix.com/en/buy-bittorrent-on-bitunix/",
+      category: "Beginner's Guide",
+    },
+  ] satisfies ContentMatrixArticle[],
 };
 
 export const n8nWorkflows: N8nWorkflow[] = [

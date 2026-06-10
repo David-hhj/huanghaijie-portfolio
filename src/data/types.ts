@@ -80,3 +80,11 @@ export type NavItem = {
   href: string;
   chapter?: string;
 };
+
+export type ContentMatrixArticle = {
+  id: string;
+  coin: string;
+  title: string;
+  href: string;
+  category: string;
+};
